@@ -1,5 +1,6 @@
 package com.biblioteca.gestion_libros.controller;
 
+import com.biblioteca.gestion_libros.config.ConfiguracionAppSingleton;
 import com.biblioteca.gestion_libros.model.Libro;
 import com.biblioteca.gestion_libros.service.LibroService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,4 +82,15 @@ public class LibroController {
             return ResponseEntity.status(404).body(response);
         }
     }
+
+     @GetMapping("/config")
+    public String obtenerConfiguracion() {
+        // Obtener la instancia Singleton
+        ConfiguracionAppSingleton configuracion = ConfiguracionAppSingleton.getInstancia();
+
+        // Usar la configuración
+        return "Nombre de la aplicación: " + configuracion.getNombreAplicacion() +
+               ", Usuario base de datos: " + configuracion.getBDUName();
+    }
+
 }
